@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
-
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div>
+      <header>
+        <h3>Расчёт интеграла</h3>
+        <p>Лабораторная №1</p>
+        <hr></hr>
       </header>
+
+      <body>
+        <div className="inputs">
+          <div>
+            <p>Верхний предел</p>
+            <input placeholder="Введите значение"></input>
+          </div>
+
+          <div>
+            <p>Нижний предел</p>
+            <input placeholder="Введите значение"></input>
+          </div>
+
+          <div>
+            <p>Число разбиений</p>
+            <input placeholder="Введите значение"></input>
+          </div>
+        </div>
+        <hr></hr>
+
+        <div className="logs">
+          <p>Результаты:</p>
+
+          <div>
+            <p>Интеграл =</p>
+          </div>
+        </div>
+
+      </body>
     </div>
   );
 }

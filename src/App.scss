@@ -1,0 +1,37 @@
+header {
+  text-align: center;
+
+  h3 {
+    font-size: 30px;
+    margin-bottom: 0;
+  }
+
+  p {
+    font-size: 20px;
+  }
+}
+
+.inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    margin-bottom: 5px;
+  }
+
+  div {
+    margin: 0 10px 10px 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+.logs {
+    div{
+        height: auto;
+        width: 100px;
+        border: 1px solid black;
+    }
+}
