@@ -38,33 +38,22 @@ export default class App extends React.Component {
 
   f(x){
     let res;
-    //res=3*x;
     res=Math.pow(2,3*x);
-    console.log("x func="+x);
-    console.log("res="+res);
     return res;
   }
 
   decision=()=>{
         
     let a=this.state.upperInt;
-    console.log("a="+a);
     let b=this.state.lowerInt;
-    console.log("b="+b);
     let N=this.state.stepInt; 
-    console.log("N="+N);
     let h=parseFloat( (b-a)/N);
-    console.log("H="+h);
     let s=0;
-    console.log("s0="+s);
-    var x=parseFloat(a);
-    console.log("x0="+x);
+    let x=parseFloat(a);
     let i=0;
     for(i=0;i<N-1;i++){
-      s+=h*this.f(+x+ +i* +h- +0.5* +h);
-      console.log("s="+s);
+      s+=h*this.f(x+i*h-0.5*h);
       x=x+h;
-      console.log("x[i]="+x);
     }
     return console.log("Результат = "+ s);
   }
