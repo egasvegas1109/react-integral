@@ -7,7 +7,6 @@ export default class App extends React.Component {
       upperInt: null,
       lowerInt: null,
       stepInt: null,
-      resultEnd: null,
       result: null,
     };
     this.upper = this.upper.bind(this);
@@ -37,24 +36,37 @@ export default class App extends React.Component {
     });
   }
 
-  decision() {
-    this.setState(function (state, props) {
-      var x,
-        y,
-        s,
-        g = (this.state.upperInt - this.state.lowerInt) / this.state.step;
-      for (var i = 0; i < this.state.step; i++) {
-        x = this.state.lowerInt + g;
-        y = 1 / this.sqrt(9 + Math.pow(x, 2));
-        s = g * y;
-        this.state.result += s;
-      }
-      console.log(this.state.resultEnd);
-      return {
-        resultEnd: this.state.result
-      };
-    });
+  f(x){
+    let res;
+    //res=3*x;
+    res=Math.pow(2,3*x);
+    console.log("x func="+x);
+    console.log("res="+res);
+    return res;
+  }
 
+  decision=()=>{
+        
+    let a=this.state.upperInt;
+    console.log("a="+a);
+    let b=this.state.lowerInt;
+    console.log("b="+b);
+    let N=this.state.stepInt; 
+    console.log("N="+N);
+    let h=parseFloat( (b-a)/N);
+    console.log("H="+h);
+    let s=0;
+    console.log("s0="+s);
+    var x=parseFloat(a);
+    console.log("x0="+x);
+    let i=0;
+    for(i=0;i<N-1;i++){
+      s+=h*this.f(+x+ +i* +h- +0.5* +h);
+      console.log("s="+s);
+      x=x+h;
+      console.log("x[i]="+x);
+    }
+    return console.log("Результат = "+ s);
   }
 
   render() {
