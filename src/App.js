@@ -3,10 +3,17 @@ import React from "react";
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { upperInt: null, lowerInt: null, stepInt: null };
+    this.state = {
+      upperInt: null,
+      lowerInt: null,
+      stepInt: null,
+      resultEnd: null,
+      result: null,
+    };
     this.upper = this.upper.bind(this);
     this.lower = this.lower.bind(this);
     this.step = this.step.bind(this);
+    this.decision = this.decision.bind(this);
   }
 
   upper(e) {
@@ -29,6 +36,27 @@ export default class App extends React.Component {
       console.log("Число разбиений " + this.state.stepInt);
     });
   }
+
+  decision() {
+    this.setState(function (state, props) {
+      var x,
+        y,
+        s,
+        g = (this.state.upperInt - this.state.lowerInt) / this.state.step;
+      for (var i = 0; i < this.state.step; i++) {
+        x = this.state.lowerInt + g;
+        y = 1 / this.sqrt(9 + Math.pow(x, 2));
+        s = g * y;
+        this.state.result += s;
+      }
+      console.log(this.state.resultEnd);
+      return {
+        resultEnd: this.state.result
+      };
+    });
+
+  }
+
   render() {
     return (
       <div>
@@ -55,6 +83,12 @@ export default class App extends React.Component {
           </div>
         </div>
         <hr></hr>
+
+        <div className="integral">
+          <input></input>
+
+          <button onClick={this.decision}></button>
+        </div>
 
         <div className="logs">
           <p>Результаты:</p>
