@@ -1,4 +1,5 @@
 import React from "react";
+import AnswerItem from "./components/AnswerItem/AnswerItem";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -8,6 +9,7 @@ export default class App extends React.Component {
       lowerInt: null,
       stepInt: null,
       result: null,
+      AnswerList: [],
     };
     this.upper = this.upper.bind(this);
     this.lower = this.lower.bind(this);
@@ -36,29 +38,45 @@ export default class App extends React.Component {
     });
   }
 
-  f(x){
+  f(x) {
     let res;
-    res=Math.pow(2,3*x);
+    res = Math.pow(2, 3 * x);
     return res;
   }
 
-  decision=()=>{
-        
-    let a=this.state.upperInt;
-    let b=this.state.lowerInt;
-    let N=this.state.stepInt; 
-    let h=parseFloat( (b-a)/N);
-    let s=0;
-    let x=parseFloat(a);
-    let i=0;
-    for(i=0;i<N-1;i++){
-      s+=h*this.f(x+i*h-0.5*h);
-      x=x+h;
+  decision = () => {
+    let a = this.state.upperInt;
+    let b = this.state.lowerInt;
+    let N = this.state.stepInt;
+    let h = parseFloat((b - a) / N);
+    let s = 0;
+    let x = parseFloat(a);
+    let i = 0;
+    for (i = 0; i < N - 1; i++) {
+      s += h * this.f(x + i * h - 0.5 * h);
+      x = x + h;
     }
-    return console.log("Результат = "+ s);
-  }
+    this.state.AnswerList.push({ answer: s }); //добавляем в массив переменную с новым значением
+    this.setState({ AnswerList: this.state.AnswerList }); //заменяем старый лист на новый
+    return console.log("Результат = " + s);
+  };
 
   render() {
+    let listItems = this.state.AnswerList.map((currElement, index, array) => {
+      if (array.length - 1 === index) {
+        return (
+          <AnswerItem
+            answer={currElement.answer}
+            face="bold"
+            index={index + 1}
+            key={index}
+          />
+        );
+      }
+      return (
+        <AnswerItem answer={currElement.answer} index={index + 1} key={index} />
+      );
+    });
     return (
       <div>
         <header>
@@ -86,17 +104,13 @@ export default class App extends React.Component {
         <hr></hr>
 
         <div className="integral">
-          <input></input>
-
-          <button onClick={this.decision}></button>
+          <button onClick={this.decision}>Рассчитать</button>
         </div>
 
         <div className="logs">
           <p>Результаты:</p>
 
-          <div>
-            <p>Интеграл =</p>
-          </div>
+          {listItems}
         </div>
       </div>
     );
