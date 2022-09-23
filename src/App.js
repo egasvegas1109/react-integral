@@ -17,6 +17,14 @@ export default class App extends React.Component {
     this.decision = this.decision.bind(this);
   }
 
+
+  deleteHandler(index){
+    let answerList = this.state.AnswerList;
+    answerList.splice(index,1);//удаляем элемент массива
+    this.setState({AnswerList:answerList});//заменяем старый массив на новый
+    console.log("123")
+  }
+
   upper(e) {
     this.setState({ upperInt: e.target.value }, function () {
       /* Получаем измененное значение state */
@@ -70,11 +78,12 @@ export default class App extends React.Component {
             face="bold"
             index={index + 1}
             key={index}
+            onClick={this.deleteHandler.bind(this, index)}
           />
         );
       }
       return (
-        <AnswerItem answer={currElement.answer} index={index + 1} key={index} />
+        <AnswerItem answer={currElement.answer} index={index + 1} key={index} onClick={this.deleteHandler.bind(this, index)} />
       );
     });
     return (

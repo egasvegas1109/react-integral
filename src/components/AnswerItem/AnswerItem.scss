@@ -1,20 +1,19 @@
-.answer
-{
-    display: flex;
-    border: none !important;
-    width: auto !important;
-    margin-bottom: 10px;
-    text-align:left;
-    
+.answer {
+  display: flex;
+  margin-bottom: 10px;
+  text-align: left;
+  align-items: flex-end;
 
-    font{
-        margin-top: 0;
-        margin-bottom: 0;
-        height: 5vh;
-        
-    }
-    p{
-        margin-top: 0;
-        margin-bottom: 0;
-    }
+  font {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  p {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  button {
+    margin-bottom: 0;
+    height: 100%;
+  }
 }
