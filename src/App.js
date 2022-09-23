@@ -15,6 +15,7 @@ export default class App extends React.Component {
     this.lower = this.lower.bind(this);
     this.step = this.step.bind(this);
     this.decision = this.decision.bind(this);
+    this.deleteAllHandler = this.deleteAllHandler.bind(this);
   }
 
 
@@ -22,7 +23,15 @@ export default class App extends React.Component {
     let answerList = this.state.AnswerList;
     answerList.splice(index,1);//удаляем элемент массива
     this.setState({AnswerList:answerList});//заменяем старый массив на новый
-    console.log("123")
+    console.log("index = " + index)
+  }
+
+  deleteAllHandler()
+  {
+    let answerList = this.state.AnswerList;
+    answerList.splice(0, answerList.length);//удаляем элемент массива
+    this.setState({AnswerList:answerList});//заменяем старый массив на новый
+    console.log("delete all");
   }
 
   upper(e) {
@@ -75,7 +84,7 @@ export default class App extends React.Component {
         return (
           <AnswerItem
             answer={currElement.answer}
-            face="bold"
+            color="green"
             index={index + 1}
             key={index}
             onClick={this.deleteHandler.bind(this, index)}
@@ -114,6 +123,7 @@ export default class App extends React.Component {
 
         <div className="integral">
           <button onClick={this.decision}>Рассчитать</button>
+          <button onClick={this.deleteAllHandler}>Очистить историю</button>
         </div>
 
         <div className="logs">
