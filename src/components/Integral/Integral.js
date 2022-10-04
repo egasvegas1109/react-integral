@@ -64,11 +64,9 @@ export default class App extends React.Component {
     let N = parseFloat(this.state.stepInt);
     let h = parseFloat((b - a) / N);
     let s = 0;
-    let x = parseFloat(a);
     let i = 0;
     for (i = 0; i < N; i++) {
       s += h * this.f(a + h * i);
-      x = x + h;
     }
     this.state.AnswerList.push({ answer: s }); //добавляем в массив переменную с новым значением
     this.setState({ AnswerList: this.state.AnswerList }); //заменяем старый лист на новый
