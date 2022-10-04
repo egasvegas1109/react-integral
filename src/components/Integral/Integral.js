@@ -1,5 +1,5 @@
 import React from "react";
-import AnswerItem from '../AnswerItem/AnswerItem'
+import AnswerItem from "../AnswerItem/AnswerItem";
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -59,15 +59,15 @@ export default class App extends React.Component {
   }
 
   decision = () => {
-    let a = this.state.lowerInt;
-    let b = this.state.upperInt;
-    let N = this.state.stepInt;
+    let a = parseFloat(this.state.lowerInt);
+    let b = parseFloat(this.state.upperInt);
+    let N = parseFloat(this.state.stepInt);
     let h = parseFloat((b - a) / N);
     let s = 0;
     let x = parseFloat(a);
     let i = 0;
-    for (i = 0; i < N - 1; i++) {
-      s += h * this.f(x + i * h - 0.5 * h);
+    for (i = 0; i < N; i++) {
+      s += h * this.f(a + h * i);
       x = x + h;
     }
     this.state.AnswerList.push({ answer: s }); //добавляем в массив переменную с новым значением
