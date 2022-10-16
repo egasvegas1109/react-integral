@@ -10,9 +10,8 @@ export default class App extends React.Component {
       <div>
         <Router>
           <Menu />
-          <Integral/>
           <Routes>
-            <Route path="/" element={""} />
+            <Route path="/" element={[<Integral/>]} />
             <Route path="/Graph" element={<Graph />} />
           </Routes>
         </Router>
