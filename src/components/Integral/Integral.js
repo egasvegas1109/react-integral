@@ -100,6 +100,7 @@ export default class App extends React.Component {
         <header>
           <h3>Расчёт интеграла</h3>
           <p>Лабораторная №1</p>
+          <p>Тютюкин Е.С. 1-46М </p>
           <hr></hr>
         </header>
 

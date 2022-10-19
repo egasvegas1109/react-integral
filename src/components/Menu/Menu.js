@@ -2,17 +2,17 @@ import { NavLink } from "react-router-dom";
 
 var Menu = () => {
   return (
-    <div>
+    <div className="menu">
       <NavLink
         end
         to="/"
-        style={({ isActive }) => ({ color: isActive ? "green" : "blue" })}
+        style={({ isActive }) => ({ color: isActive ? "green" : "blue"})}
       >
         Главная
       </NavLink>
 
       <NavLink
-        to="/counter"
+        to="/Description"
         style={({ isActive }) => ({ color: isActive ? "green" : "blue" })}
       >
         Описание метода
