@@ -1,5 +1,7 @@
 import React from "react";
 import AnswerItem from "../AnswerItem/AnswerItem";
+import axios from "axios"
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -52,25 +54,24 @@ export default class App extends React.Component {
     });
   }
 
-  f(x) {
-    let res;
-    res = Math.pow(2, 3 * x);
-    return res;
-  }
-
   decision = () => {
-    let a = parseFloat(this.state.lowerInt);
-    let b = parseFloat(this.state.upperInt);
-    let N = parseFloat(this.state.stepInt);
-    let h = parseFloat((b - a) / N);
-    let s = 0;
-    let i = 0;
-    for (i = 0; i < N; i++) {
-      s += h * this.f(a + h * i);
+    
+    // const data = {
+
+    // }
+    const headers = {
+      upperInt: this.state.upperInt,
+      lowerInt: this.state.lowerInt,
+      stepInt: this.state.stepInt
     }
-    this.state.AnswerList.push({ answer: s }); //добавляем в массив переменную с новым значением
-    this.setState({ AnswerList: this.state.AnswerList }); //заменяем старый лист на новый
-    return console.log("Результат = " + s);
+
+    axios.post("http://localhost:5272/IntegralSolution/calculate", {
+      headers: headers})
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => console.log(error));
+
   };
 
   render() {
