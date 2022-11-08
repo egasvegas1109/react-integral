@@ -64,18 +64,15 @@ export default class App extends React.Component {
     // console.log("INTEGRAL VARS "+ integralVars);
     // const jsonModel = JSON.stringify(integralVars);
     // console.log("JSON MODEL " + jsonModel);
-    const headers = {
-      'Content-Type': 'application/json'
-    }
 
-    axios.post("http://localhost:5272/IntegralSolution/calculate", integralVars,{
-      headers: headers
-    })
+    axios.post("http://localhost:5272/IntegralSolution/calculate", integralVars)
       .then(res => {
+        this.state.AnswerList.push({ answer: res.data });
+        this.setState({ AnswerList: this.state.AnswerList }); //заменяем старый лист на новый
+        console.log(this.state.AnswerList);
         console.log(res.data);
       })
       .catch(error => console.log(error));
-
   };
 
   render() {
