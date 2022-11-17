@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     container_name: reactintegral
     environment:
-      REACT_APP_PATH: http://server:80/IntegralSolution/calculate
+      REACT_APP_PATH: http://localhost:5010/IntegralSolution/calculate
 
    server:
     image: egasvegas/react-integral-server:latest

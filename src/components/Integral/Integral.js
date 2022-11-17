@@ -65,7 +65,8 @@ export default class App extends React.Component {
     // const jsonModel = JSON.stringify(integralVars);
     // console.log("JSON MODEL " + jsonModel);
 
-    axios.post("http://localhost:5272/IntegralSolution/calculate", integralVars)
+    
+    axios.post(process.env.REACT_APP_PATH, integralVars)
       .then(res => {
         this.state.AnswerList.push({ answer: res.data });
         this.setState({ AnswerList: this.state.AnswerList }); //заменяем старый лист на новый
