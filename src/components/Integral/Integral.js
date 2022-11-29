@@ -1,83 +1,63 @@
-import React from "react";
+import { Component, useState } from 'react';
 import AnswerItem from "../AnswerItem/AnswerItem";
 import axios from "axios"
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      upperInt: null,
-      lowerInt: null,
-      stepInt: null,
-      result: null,
-      AnswerList: [],
-    };
-    this.upper = this.upper.bind(this);
-    this.lower = this.lower.bind(this);
-    this.step = this.step.bind(this);
-    this.decision = this.decision.bind(this);
-    this.deleteAllHandler = this.deleteAllHandler.bind(this);
-  }
+export default function Integral(){
+  const [upperInt, setUpper] = useState(0)
+  const [lowerInt, setLower] = useState(0)
+  const [stepInt, setStep] = useState(0)
+  const [AnswerList, setAnswerList] = useState([])
 
-  deleteHandler(index) {
-    let answerList = this.state.AnswerList;
+  const deleteHandler = (index) => {
+    let answerList = AnswerList;
     answerList.splice(index, 1); //удаляем элемент массива
-    this.setState({ AnswerList: answerList }); //заменяем старый массив на новый
+    setAnswerList(answerList.slice());//заменяем старый массив на новый
     console.log("index = " + index);
   }
 
-  deleteAllHandler() {
-    let answerList = this.state.AnswerList;
-    answerList.splice(0, answerList.length); //удаляем элемент массива
-    this.setState({ AnswerList: answerList }); //заменяем старый массив на новый
-    console.log("delete all");
+  const deleteAllHandler = () => {
+    const answerListNew=[]
+    setAnswerList(answerListNew);
   }
 
-  upper(e) {
-    this.setState({ upperInt: e.target.value }, function () {
-      /* Получаем измененное значение state */
-      console.log("Верхний предел " + this.state.upperInt);
-    });
+  const upperChange = (e) => {
+    var val = e.target.value;
+    setUpper(val) 
+    console.log(upperInt)
+}
+
+  const lowerChange = (e) => {
+    var val = e.target.value;
+    setLower(val) 
+    console.log(lowerInt)
   }
 
-  lower(e) {
-    this.setState({ lowerInt: e.target.value }, function () {
-      /* Получаем измененное значение state */
-      console.log("Нижний предел " + this.state.lowerInt);
-    });
+  const stepChange = (e) => {
+    var val = e.target.value;
+    setStep(val) 
+    console.log(stepInt)
   }
 
-  step(e) {
-    this.setState({ stepInt: e.target.value }, function () {
-      /* Получаем измененное значение state */
-      console.log("Число разбиений " + this.state.stepInt);
-    });
-  }
-
-  decision = () => {
-
+  const decision = () => {
+    let currentList=AnswerList;
     let integralVars = {
-      a: this.state.lowerInt,
-      b: this.state.upperInt,
-      n: this.state.stepInt,
+      a: lowerInt,
+      b: upperInt,
+      n: stepInt,
     };
-    // console.log("INTEGRAL VARS "+ integralVars);
-    // const jsonModel = JSON.stringify(integralVars);
-    // console.log("JSON MODEL " + jsonModel);
 
-    
-    axios.post(process.env.REACT_APP_PATH, integralVars)
+    axios.post("http://localhost:5272/IntegralSolution/calculate", integralVars)
       .then(res => {
-        this.state.AnswerList.push({ answer: res.data });
-        this.setState({ AnswerList: this.state.AnswerList }); //заменяем старый лист на новый
-        console.log(this.state.AnswerList);
+        currentList.push({answer:res.data});
+        setAnswerList(currentList.slice())
         console.log(res.data);
+        console.log(currentList)
       })
       .catch(error => console.log(error));
-  };
+  }
 
-  render() {
-    let listItems = this.state.AnswerList.map((currElement, index, array) => {
+
+    let listItems = AnswerList.map((currElement, index, array) => {
       if (array.length - 1 === index) {
         return (
           <AnswerItem
@@ -85,7 +65,7 @@ export default class App extends React.Component {
             color="green"
             index={index + 1}
             key={index}
-            onClick={this.deleteHandler.bind(this, index)}
+            onClick={() =>deleteHandler(index)}
           />
         );
       }
@@ -94,7 +74,7 @@ export default class App extends React.Component {
           answer={currElement.answer}
           index={index + 1}
           key={index}
-          onClick={this.deleteHandler.bind(this, index)}
+          onClick={() =>deleteHandler(index)}
         />
       );
     });
@@ -110,24 +90,24 @@ export default class App extends React.Component {
         <div className="inputs">
           <div>
             <p>Верхний предел</p>
-            <input placeholder="Введите значение" onChange={this.upper}></input>
+            <input placeholder="Введите значение" onChange={(e) => upperChange(e)}></input>
           </div>
 
           <div>
             <p>Нижний предел</p>
-            <input placeholder="Введите значение" onChange={this.lower}></input>
+            <input placeholder="Введите значение" onChange={(e) => lowerChange(e)}></input>
           </div>
 
           <div>
             <p>Число разбиений</p>
-            <input placeholder="Введите значение" onChange={this.step}></input>
+            <input placeholder="Введите значение" onChange={(e) => stepChange(e)}></input>
           </div>
         </div>
         <hr></hr>
 
         <div className="integral">
-          <button onClick={this.decision}>Рассчитать</button>
-          <button onClick={this.deleteAllHandler}>Очистить историю</button>
+          <button onClick={() => decision()}>Рассчитать</button>
+          <button onClick={() => deleteAllHandler()}>Очистить историю</button>
         </div>
 
         <div className="logs">
@@ -137,5 +117,4 @@ export default class App extends React.Component {
         </div>
       </div>
     );
-  }
 }
