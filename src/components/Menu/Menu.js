@@ -24,6 +24,13 @@ var Menu = () => {
       >
         График
       </NavLink>
+
+      <NavLink
+        to="/Test"
+        style={({ isActive }) => ({ color: isActive ? "green" : "blue" })}
+      >
+        Тест
+      </NavLink>
     </div>
   );
 };
