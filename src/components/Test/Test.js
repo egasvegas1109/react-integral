@@ -7,7 +7,7 @@ import React, {  useState, useEffect } from "react";
      const [isActive, setMarkShown] = useState(false);
      const [getQuestionList, setQuestionList] = useState([]);
      const [getAnswers, setAnswers] = useState([]);
-     const [AnswerList, setAnswerList] = useState([0,0,0,0,0,0,0,0,0,0]);
+     const [AnswerList, setAnswerList] = useState([0,0,0,0,0]);
      const [mark, setMark] = useState(0);
 
      useEffect(()=>{
